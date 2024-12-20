@@ -5,11 +5,12 @@ import FailureMessage from '@/components/failureMessage';
 import FormButton from '@/components/formButton';
 import FormInput from '@/components/formInput';
 import SuccessMessage from '@/components/successMessage';
-import { BadgeCheck, Flame } from 'lucide-react';
-import { useActionState, useRef } from 'react';
+import { Flame } from 'lucide-react';
+import { useActionState } from 'react';
+import { useFormState } from 'react-dom';
 
 export default function Login() {
-  const [state, action] = useActionState(formAction, null);
+  const [state, action] = useFormState(formAction, null);
 
   return (
     <div className="w-[400px] mx-auto">
