@@ -1,40 +1,70 @@
 'use server';
 
-import { delay } from '@/utils/delay';
+import db from '@/utils/db';
+import { saveSession } from '@/utils/session';
+import bcrypt from 'bcrypt';
+import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
-function shouldContainAtLeastOneNumber(password: string) {
-  return /\d/.test(password);
-}
+const findUserBy = async (username: string, password: string) => {
+  const user = await db.user.findUnique({
+    where: {
+      username,
+    },
+    select: {
+      id: true,
+      password: true,
+    },
+  });
+
+  if (user === null) {
+    return null;
+  }
+
+  const passwordMatches = bcrypt.compareSync(password, user.password);
+  if (!passwordMatches) {
+    return null;
+  }
+
+  return { id: user.id };
+};
 
 const formSchema = z.object({
-  email: z
-    .string()
-    .email()
-    .regex(/@zod.com$/, 'Only @zod.com emails are allowed'),
   username: z
     .string()
     .trim()
-    .min(5, 'Username should be at least 5 characters long'),
+    .min(5, 'at least 5 characters')
+    .max(10, 'at most 10 characters'),
   password: z
     .string()
     .trim()
-    .min(10, 'Password should be at least 10 characters long')
-    .refine(
-      shouldContainAtLeastOneNumber,
-      'Password should contain at least one number'
-    ),
+    .min(6, 'at least 6 characters')
+    .max(10, 'at most 10 characters'),
 });
 
 export default async function loginAction(prevState: any, formData: FormData) {
-  await delay(1000);
-
   const data = Object.fromEntries(formData);
-  const result = formSchema.safeParse(data);
+  const result = await formSchema.spa(data);
 
   if (!result.success) {
     return result.error?.flatten();
   }
 
-  console.log(result.data);
+  // validate with username and password
+  const user = await findUserBy(result.data.username, result.data.password);
+
+  if (user === null) {
+    return {
+      fieldErrors: {
+        email: [],
+        username: [],
+        password: ['username or password is incorrect'],
+        confirmPassword: [],
+      },
+    };
+  }
+
+  await saveSession(user.id);
+
+  redirect('/profile');
 }
