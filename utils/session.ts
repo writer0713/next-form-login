@@ -30,6 +30,11 @@ export async function isInvalidSession() {
   return !session.id;
 }
 
+export async function isValidSession() {
+  const session = await getSession();
+  return !!session.id;
+}
+
 export async function getUserIdFromSession() {
   const session = await getSession();
   return session.id;

@@ -64,7 +64,6 @@ export default async function signupAction(prevState: any, formData: FormData) {
 
   ////////// validation fail
   if (!result.success) {
-    console.log(result.error?.flatten());
     return result.error?.flatten();
   }
 

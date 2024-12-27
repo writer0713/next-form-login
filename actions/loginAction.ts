@@ -66,5 +66,5 @@ export default async function loginAction(prevState: any, formData: FormData) {
 
   await saveSession(user.id);
 
-  redirect('/profile');
+  redirect('/');
 }
