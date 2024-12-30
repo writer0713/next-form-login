@@ -38,22 +38,24 @@ export default function TweetList({ initialTweets }: { initialTweets: Tweet }) {
         return <TweetBriefCard key={index} tweet={tweet} />;
       })}
 
-      <div className="max-w-md w-full flex justify-between">
-        <button
-          onClick={handleClickPrevButton}
-          disabled={page === 0}
-          className="bg-white px-4 py-2 rounded-full shadow-xl hover:bg-slate-50 active:bg-slate-100 disabled:opacity-30"
-        >
-          Prev
-        </button>
-        <button
-          onClick={handleClickNextButton}
-          disabled={isLastPage}
-          className="bg-white px-4 py-2 rounded-full shadow-xl hover:bg-slate-50 active:bg-slate-100 disabled:opacity-30"
-        >
-          Next
-        </button>
-      </div>
+      {tweets.length > 0 && (
+        <div className="max-w-md w-full flex justify-between">
+          <button
+            onClick={handleClickPrevButton}
+            disabled={page === 0}
+            className="bg-white px-4 py-2 rounded-full shadow-xl hover:bg-slate-50 active:bg-slate-100 disabled:opacity-30"
+          >
+            Prev
+          </button>
+          <button
+            onClick={handleClickNextButton}
+            disabled={isLastPage}
+            className="bg-white px-4 py-2 rounded-full shadow-xl hover:bg-slate-50 active:bg-slate-100 disabled:opacity-30"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </>
   );
 }
