@@ -1,8 +1,8 @@
 'use client';
 
-import TweetBriefCard from './tweetBriefCard';
-import { useEffect, useState } from 'react';
 import getTweets, { Tweet } from '@/actions/getTweetsAction';
+import { useState } from 'react';
+import TweetBriefCard from './tweetBriefCard';
 
 export default function TweetList({ initialTweets }: { initialTweets: Tweet }) {
   const [tweets, setTweets] = useState<Tweet>([...initialTweets]);

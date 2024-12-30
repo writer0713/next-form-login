@@ -3,7 +3,7 @@
 import db from '@/utils/db';
 import { Prisma } from '@prisma/client';
 
-export default async function getTweets(skip: number) {
+export default async function getTweets(skip: number = 0) {
   const tweets = await db.tweet.findMany({
     orderBy: [
       {
