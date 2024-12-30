@@ -27,7 +27,7 @@ export default async function Profile() {
           Welcome!{' '}
           <span className="font-bold text-red-500">{user?.username}</span>
         </p>
-        <form action={logoutAction}>
+        <form action={logoutAction} className="flex justify-center">
           <button className="primary-button">Logout</button>
         </form>
       </div>

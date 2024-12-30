@@ -3,6 +3,7 @@
 import loginAction from '@/actions/loginAction';
 import Button from '@/components/button';
 import Input from '@/components/input';
+import CustomLink from '@/components/link';
 import Logo from '@/components/logo';
 import { useFormState } from 'react-dom';
 
@@ -28,7 +29,10 @@ export default function Login() {
             errors={state?.fieldErrors.password}
           />
 
-          <Button text="login" />
+          <div className="w-full flex gap-2 justify-between items-center mt-5">
+            <Button text="login" />
+            <CustomLink url="/create-account" text="signup" />
+          </div>
         </form>
       </div>
     </div>

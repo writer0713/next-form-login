@@ -11,7 +11,6 @@ export default function CustomLink({
   return (
     <Link href={url} className="primary-button group">
       {text}
-      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
     </Link>
   );
 }
